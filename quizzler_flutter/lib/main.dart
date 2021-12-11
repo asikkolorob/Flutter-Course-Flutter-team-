@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'quiz_brain.dart';
+
+Quizbrain quizeBrain = Quizbrain();
 
 void main() => runApp(const MyApp());
 
@@ -30,28 +33,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Widget> scoreIcon = [
-    const Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    const Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-    const Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-    const Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-    const Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-  ];
+  List<Widget> scoreIcon = [];
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +42,19 @@ class _QuizPageState extends State<QuizPage> {
       body: Column(
         children: [
           //? Quetions
-          const Expanded(
+          Expanded(
             flex: 4,
-            child: Center(
-              child: Text(
-                "This is quetions....",
-                style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  quizeBrain.getQuestions().toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ),
@@ -76,13 +65,17 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: ElevatedButton(
                 onPressed: () {
+                  bool? currectAnswer = quizeBrain.currectAnswer();
+
+                  if (currectAnswer == true) {
+                    // ignore: avoid_print
+                    print("user currect");
+                  } else {
+                    // ignore: avoid_print
+                    print("user not currect");
+                  }
                   setState(() {
-                    scoreIcon.add(
-                      const Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ),
-                    );
+                    quizeBrain.nextQuestion();
                   });
                 },
                 child: const Text(
@@ -103,7 +96,20 @@ class _QuizPageState extends State<QuizPage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  bool? currectAnswer = quizeBrain.currectAnswer();
+
+                  if (currectAnswer == false) {
+                    // ignore: avoid_print
+                    print("user currect");
+                  } else {
+                    // ignore: avoid_print
+                    print("user not currect");
+                  }
+                  setState(() {
+                    quizeBrain.nextQuestion();
+                  });
+                },
                 child: const Text(
                   "False",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -126,3 +132,9 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 }
+
+/*
+question1: 'You can lead a cow down stairs but not up stairs.', false,
+question2: 'Approximately one quarter of human bones are in the feet.', true,
+question3: 'A slug\'s blood is green.', true,
+*/
