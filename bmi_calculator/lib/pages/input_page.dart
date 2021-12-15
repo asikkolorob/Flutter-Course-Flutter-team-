@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'widgets/icon_button.dart';
-import 'widgets/icon_content.dart';
-import 'widgets/reuseble_card.dart';
-import 'constent.dart';
+import '../widgets/bmi_button.dart';
+import '../widgets/icon_button.dart';
+import '../widgets/icon_content.dart';
+import '../widgets/reuseble_card.dart';
+import '../helper/constent.dart';
+import '../utils/main_calculat.dart';
 import 'results_page.dart';
 
 enum Gender { male, female }
@@ -18,9 +20,9 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
-  int height = 120;
-  int weight = 0;
-  int age = 0;
+  int height = 180;
+  int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class _InputPageState extends State<InputPage> {
           //body
           Expanded(
             child: ReusableCard(
+              onpress: () {},
               color: kActiveCardBackgroundColor,
               cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -129,6 +132,7 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardBackgroundColor,
+                    onpress: () {},
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -168,6 +172,7 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
+                    onpress: () {},
                     color: kActiveCardBackgroundColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -210,21 +215,23 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           //Bottom Button
-          GestureDetector(
-            onTap: () {
+          BmiButton(
+            onPress: () {
+              CalculatBrain clac =
+                  CalculatBrain(height: height, weight: weight);
+
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ResulsPage()),
+                MaterialPageRoute(
+                  builder: (context) => ResulsPage(
+                    bmiResult: clac.calculateBmi(),
+                    interpretation: clac.getInterpretation().toString(),
+                    resultText: clac.getResult().toString(),
+                  ),
+                ),
               );
             },
-            child: Container(
-              alignment: Alignment.center,
-              child: Text("caculation".toUpperCase()),
-              margin: const EdgeInsets.only(top: 10.0),
-              color: kBottomButtonColor,
-              height: kBottomButtonHeight,
-              width: double.infinity,
-            ),
+            text: 'calculate',
           )
         ],
       ),
