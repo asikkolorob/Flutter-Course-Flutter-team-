@@ -40,7 +40,7 @@ class _CityScreenState extends State<CityScreen> {
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   'Get Weather',
                   style: kButtonTextStyle,
                 ),
