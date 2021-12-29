@@ -1,5 +1,9 @@
-import 'package:clima_flutter/services/location.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import '/services/location.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -12,8 +16,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocation() async {
     Location location = Location();
     await location.currentLocation();
-    print('Longitude: ${location.longitude}');
-    print('Latitude: ${location.latitude}');
+  }
+
+  void getData() async {
+    String url = 'https://jsonplaceholder.typicode.com/posts';
+    http.Response response = await http.get(Uri.parse(url));
+
+    String data = response.body;
+    var decodedData = jsonDecode(data);
+
+    int jsonId = decodedData[0]['id'];
+    String jsonTitle = decodedData[0]['title'];
+    String jsonBody = decodedData[0]['body'];
+
+    // ignore: avoid_print
+    print(jsonId);
+    // ignore: avoid_print
+    print(jsonTitle);
+    // ignore: avoid_print
+    print(jsonBody);
   }
 
   @override
@@ -24,9 +45,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return const Scaffold(
       body: Center(
-        child: Text('data'),
+        child: SpinKitCubeGrid(
+          color: Colors.teal,
+          size: 100.0,
+        ),
       ),
     );
   }
