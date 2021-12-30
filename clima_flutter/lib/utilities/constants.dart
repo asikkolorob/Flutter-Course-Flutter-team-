@@ -18,3 +18,8 @@ const kButtonTextStyle = TextStyle(
 const kConditionTextStyle = TextStyle(
   fontSize: 100.0,
 );
+
+const kOriginStyle = TextStyle(
+  fontSize: 18.0,
+  color: Colors.white,
+);

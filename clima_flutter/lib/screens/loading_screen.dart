@@ -29,11 +29,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
     String jsonTitle = decodedData[0]['title'];
     String jsonBody = decodedData[0]['body'];
 
-    // ignore: avoid_print
     print(jsonId);
-    // ignore: avoid_print
     print(jsonTitle);
-    // ignore: avoid_print
     print(jsonBody);
   }
 
@@ -48,7 +45,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getData();
     return const Scaffold(
       body: Center(
-        child: SpinKitCubeGrid(
+        child: SpinKitFadingCube(
           color: Colors.teal,
           size: 100.0,
         ),

@@ -1,5 +1,6 @@
+//packages
 import 'package:flutter/material.dart';
-
+//pages
 import '../utilities/constants.dart';
 
 class CityScreen extends StatefulWidget {
