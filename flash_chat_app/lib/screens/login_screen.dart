@@ -67,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: (value) {
                     //? Do something with the user input.
                   },
+                  obscureText: true,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     hintText: 'Enter your password.',
